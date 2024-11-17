@@ -9,18 +9,37 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^18",
+    "@prisma/client": "^5.22.0",
+    "@types/bcrypt": "^5.0.2",
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.5.1",
+    "clsx": "^2.1.1",
+    "gapi-script": "^1.2.0",
+    "googleapis": "^144.0.0",
+    "googleapis-common": "^7.2.0",
+    "install": "^0.13.0",
+    "next": "14.2.15",
+    "next-auth": "^4.24.10",
+    "next-nprogress-bar": "^2.3.15",
+    "npm": "^10.9.0",
+    "pdf": "^0.1.0",
+    "prisma": "^5.22.0",
+    "react": "^18.3.1",
+    "react-data-table-component": "^7.6.2",
     "react-dom": "^18",
-    "next": "14.2.15"
+    "react-dropzone": "^14.3.5",
+    "react-hot-toast": "^2.4.1",
+    "react-pdf": "^9.1.1",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.15"
+    "typescript": "^5"
   }
 }

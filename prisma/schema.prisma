@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String     @id @default(uuid()) @map("user_id") @db.Char(36)
+  email         String     @unique
+  photo_profile String?
+  name          String
+  clasess       Class?
+  title         Title?
+  detail        Int?
+  absent        String?
+  Phone         String?
+  role          Role       @default(GURU)
+  status        Status     @default(NOTGRADUATE)
+  gender        Gender?    @default(Male)
+  userAuth      UserAuth?
+  taskValidator fileWork[] @relation("task_validator")
+  Sugestion     String?
+  ClassNumber   String?
+  SchoolOrigin  String?
+  validatorId   String?
+  generation    String?
+  cover         String?
+  File          fileWork[] @relation("file_id")
+  validator     User?      @relation("teacherToStudent", fields: [validatorId], references: [id])
+  user          User[]     @relation("teacherToStudent")
+  comment       comment[]  @relation("comment")
+}
+
+model fileWork {
+  id            String        @id @default(uuid()) @map("file_id") @db.Char(36)
+  filename      String
+  mimetype      String
+  size          Int
+  userClasses   Class
+  status        RequestStatus @default(PENDING)
+  userId        String
+  TaskValidator User[]        @relation("task_validator")
+  user          User?         @relation("file_id", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  path          String
+  coverFile     String?
+  permisionId   String?
+  genre         String
+  Like          Int           @default(0)
+  views         Int           @default(0)
+  userRole      Role          @default(GURU)
+  createdAt     DateTime      @default(now())
+  comment       comment[]     @relation("comment_file")
+}
+
+model SchoolOrigin{
+  id      String     @id @default(uuid()) @map("school_id") @db.Char(36)
+  name    String
+}
+
+model comment {
+  id     String     @id @default(uuid()) @map("comment_id") @db.Char(36)
+  Text   String?
+  userId String?
+  user   User?      @relation("comment", fields: [userId], references: [id])
+  file   fileWork[] @relation("comment_file")
+}
+
+model Genre {
+  id    String @id @default(uuid()) @map("genre_id") @db.Char(36)
+  Genre String
+}
+
+enum Class {
+  X
+  XI
+  XII
+}
+
+enum Title {
+  TATA_BUSANA
+  TATA_BOGA
+  PERHOTELAN
+  KECANTIKAN
+  GURU_NORMADA
+}
+
+model UserAuth {
+  id         String    @id @default(uuid()) @map("userauth_id") @db.Char(36)
+  password   String?
+  last_login DateTime?
+  userEmail  String    @unique
+  user       User      @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+}
+
+enum Status {
+  NOTGRADUATE
+  GRADUATE
+}
+
+enum Role {
+  GURU
+  ADMIN
+  SUPERADMIN
+  VALIDATOR
+  DELETE
+}
+
+enum Gender {
+  Male
+  Female
+}
+
+enum RequestStatus {
+  PENDING
+  VERIFIED
+  DENIED
+}
